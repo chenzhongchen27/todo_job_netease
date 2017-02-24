@@ -1,0 +1,10 @@
+--------------------------aeaf8f0dfed21450
+Content-Disposition: form-data; name="u"; filename="data.txt"
+Content-Type: text/plain
+
+这是data.txt文件，哇哈哈
+--------------------------aeaf8f0dfed21450
+Content-Disposition: form-data; name="wodemingzi"
+
+xuefei&shiba=shide
+--------------------------aeaf8f0dfed21450--
