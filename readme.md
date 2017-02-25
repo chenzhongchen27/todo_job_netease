@@ -9,4 +9,7 @@
 模拟connection的use方法，添加路径与action中方法的对应关系
 
 ## mongodb.js 
-增加官方nodejs驱动mongodb的练习代码
+官方nodejs驱动mongodb的练习代码
+
+## serverauth.js
+练习Basic Authorization的代码
