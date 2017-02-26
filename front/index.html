@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>regualrjs - todomvc 练习页面</title>
+	<script type="text/javascript" src="../resource/regular.js"></script>
+	<link rel="stylesheet" type="text/css" href="./index.css">
+</head>
+<body>
+	<h1 class="title">reglarjs——todomvc练习页面</h1>
+	<div id="app"></div>
+	<script id="hello" name="hello" type="template/regular">
+		hello {test}
+		{#if username}
+		这是你的d名字{username}
+		<div on-click={username=""}>退出登录</div>
+		{#else}
+		请先输入你的名字
+		<div on-click={this.login()}>登录</div>
+		{/if}
+		<input ng-module={test}/>
+	</script>
+	<script type="text/javascript">
+		var HelloRegular = Regular.extend({
+			template:"#hello"
+			,data:{
+				username:'飞哥'
+			}
+			,computed:{
+				test:{
+					get:function(data){
+						console.log('computed中传进来的数据',data)
+						return 2;
+					}
+					,set:function(value,data){
+						console.log('test->set传进来的数据',arguments)
+						data.username = '二哥'
+					}
+				}
+			}
+			,login:function(){
+				this.data.username = '飞哥儿'
+			}
+		})
+
+		HelloRegular.directive('ng-module',function(ele,expression){
+			var self = this;
+			this.$watch(expression,function(newValue){
+				ele.value = newValue;
+			})
+			ele.addEventListener('input',function(){
+				self.$update(expression,ele.value)
+			})
+		})
+
+		var helloRegular = new HelloRegular();
+		helloRegular.$inject('#app')
+
+	</script>
+</body>
+</html>
