@@ -14,3 +14,11 @@ server文件夹
 
 	## serverauth.js
 	练习Basic Authorization的代码
+
+分支说明
+	
+	## stage1 
+	练习的代码
+
+	## stage2
+	正式编写前的代码，已分了front、server两个文件夹，且增加了一些练习
