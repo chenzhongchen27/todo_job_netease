@@ -4,7 +4,8 @@
   "description": "入职大作业及练习代码",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "browser-sync start --port 8086 --server --startPath front --files front/*"
+    ,"sass": "node-sass style/index.scss front/index.css --watch style/index.scss"
   },
   "author": "firstfly",
   "license": "ISC",

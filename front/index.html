@@ -1,61 +1,72 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>regualrjs - todomvc 练习页面</title>
+	<title>regularjs - todo 练习页面</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
 	<script type="text/javascript" src="../resource/regular.js"></script>
-	<link rel="stylesheet" type="text/css" href="./index.css">
 </head>
 <body>
-	<h1 class="title">reglarjs——todomvc练习页面</h1>
-	<div id="app"></div>
-	<script id="hello" name="hello" type="template/regular">
-		hello {test}
-		{#if username}
-		这是你的d名字{username}
-		<div on-click={username=""}>退出登录</div>
-		{#else}
-		请先输入你的名字
-		<div on-click={this.login()}>登录</div>
-		{/if}
-		<input ng-module={test}/>
+<!-- 	<h1>regularjs - todo 练习</h1>  -->	
+	<script type="template/regular" id="todomvc">
+		<input type="text" id="addTodo" name="addTodo" placeholder="新建todo项目" />
+		<ul class="items">
+			{#list todos as todo}
+			<li class="item">
+				<input type="checkbox" class="toggleItem" r-model={todo.completed}/>
+				<span>{todo.descript}</span>
+				<button class="delete">删除</button>
+			</li>
+			{/list}
+		</ul>
+		<footer class="control">
+			<span><strong>{todos.length}</strong> items </span>
+			<ul>
+				<li><a r-class={{active:filter=='all'}} href="">all</a></li>
+				<li><a r-class={{active:filter=='active'}} href="">active</a></li>
+				<li><a r-class={{active:filter=='completed'}} href="">completed</a></li>
+				<li><label><input type="checkbox" r-model={isAllCompleted} />toggle all</label> </li>
+			</ul>
+			<button>clearm {completedLength} completed</button>
+		</footer>
 	</script>
+	<div id="todoapp" class="">
+		
+	</div>
 	<script type="text/javascript">
-		var HelloRegular = Regular.extend({
-			template:"#hello"
-			,data:{
-				username:'飞哥'
-			}
+		var defaultData = {
+			todos:[{
+				descript:'第一条todo的项目'
+				,completed:true
+				,uid:new Date().getTime()
+			},{
+				descript:'第二条todo的项目'
+				,completed:false
+				,uid:new Date().getTime()
+			},{
+				descript:'第三条todo的项目'
+				,completed:true
+				,uid:new Date().getTime()
+			}]
+			,editing:null
+			,filter:'all'
+		}
+		var TodoMVC = Regular.extend({
+			template:'#todomvc'
+			,data:defaultData
 			,computed:{
-				test:{
-					get:function(data){
-						console.log('computed中传进来的数据',data)
-						return 2;
+				isAllCompleted:{
+					get:function(){
+						return this.data.todos.every(todo=>todo.completed);
 					}
-					,set:function(value,data){
-						console.log('test->set传进来的数据',arguments)
-						data.username = '二哥'
-					}
+					,set:function(bol){this.data.todos.forEach(
+						(todo)=>todo.completed = bol
+					)}
 				}
-			}
-			,login:function(){
-				this.data.username = '飞哥儿'
+				,completedLength:"this.data.todos.length"
 			}
 		})
-
-		HelloRegular.directive('ng-module',function(ele,expression){
-			var self = this;
-			this.$watch(expression,function(newValue){
-				ele.value = newValue;
-			})
-			ele.addEventListener('input',function(){
-				self.$update(expression,ele.value)
-			})
-		})
-
-		var helloRegular = new HelloRegular();
-		helloRegular.$inject('#app')
-
+		new TodoMVC().$inject('#todoapp')
 	</script>
 </body>
 </html>
