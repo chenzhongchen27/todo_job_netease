@@ -4,12 +4,13 @@
   "description": "入职大作业及练习代码",
   "main": "index.js",
   "scripts": {
-    "start": "browser-sync start --port 8086 --server --startPath front --files front/*"
-    ,"sass": "node-sass style/index.scss front/index.css --watch style/index.scss"
+    "start": "browser-sync start --port 8086 --server --startPath front --files front/*",
+    "sass": "node-sass style/index.scss front/index.css --watch style/index.scss"
   },
   "author": "firstfly",
   "license": "ISC",
   "dependencies": {
-    "mongodb": "^2.2.24"
+    "mongodb": "^2.2.24",
+    "redux": "^3.6.0"
   }
 }

@@ -63,7 +63,9 @@
 						(todo)=>todo.completed = bol
 					)}
 				}
-				,completedLength:"this.data.todos.length"
+				,completedLength:function(){
+					return this.data.todos.filter(todo=>todo.completed).length
+				}
 			}
 		})
 		new TodoMVC().$inject('#todoapp')
