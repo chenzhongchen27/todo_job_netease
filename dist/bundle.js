@@ -701,7 +701,9 @@ module.exports = g;
 
 
 var actionCreators = {
-	addTodo: function addTodo(newTodo) {
+	addTodo: function addTodo(ev) {
+		var newTodo = ev.target.value;
+		ev.target.value = ''; //清空
 		return {
 			type: 'add-todo',
 			newTodo: newTodo
@@ -713,10 +715,15 @@ var actionCreators = {
 			uid: uid
 		};
 	},
-	toggleOne: function toggleOne(uid) {
+	changeFilter: function changeFilter(filter) {
 		return {
-			type: 'toggle-one',
-			uid: uid
+			type: 'change-filter',
+			filter: filter
+		};
+	},
+	clearCompleted: function clearCompleted() {
+		return {
+			type: 'clear-completed'
 		};
 	}
 };
@@ -748,8 +755,7 @@ var defaultData = {
 		uid: Math.random()
 	}],
 	editing: null,
-	filter: 'active',
-	newTodo: ''
+	filter: 'active'
 };
 
 function reducer() {
@@ -765,8 +771,7 @@ function reducer() {
 			}].concat(state.todos);
 			//保证每次return的都是不同的对象，这是redux原则
 			return Object.assign({}, state, {
-				todos: todos,
-				newTodo: ''
+				todos: todos
 			});
 		case 'delete-todo':
 			var todos2 = state.todos.filter(function (todo) {
@@ -774,6 +779,18 @@ function reducer() {
 			});
 			return Object.assign({}, state, {
 				todos: todos2
+			});
+		case 'change-filter':
+			var newstate = Object.assign({}, state, {
+				filter: action.filter
+			});
+			return newstate;
+		case "clear-completed":
+			var todos3 = state.todos.filter(function (todo) {
+				return !todo.completed;
+			});
+			return Object.assign({}, state, {
+				todos: todos3
 			});
 		default:
 			return state;

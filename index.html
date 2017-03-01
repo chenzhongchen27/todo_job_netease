@@ -10,7 +10,7 @@
 <!-- 	<h1>regularjs - todo 练习</h1>  -->	
 	<div id="todoapp" class=""></div>
 	<script type="template/regular" id="todomvc">
-		<input type="text" id="addTodo" name="addTodo" placeholder="新建todo项目" r-model={newTodo} on-enter={this.actions.addTodo(newTodo)}/>
+		<input type="text" id="addTodo" name="addTodo" placeholder="新建todo项目" on-enter={this.actions.addTodo($event)}/>
 		<ul class="items">
 			{#list todos as todo}
 			<li class="item">
@@ -23,12 +23,12 @@
 		<footer class="control">
 			<span><strong>{todos.length}</strong> items </span>
 			<ul>
-				<li><a r-class={{active:filter=='all'}} href="">all</a></li>
-				<li><a r-class={{active:filter=='active'}} href="">active</a></li>
-				<li><a r-class={{active:filter=='completed'}} href="">completed</a></li>
+				<li><a r-class={{active:filter=='all'}} href="javascript:void(0);" on-click={this.actions.changeFilter('all')}>all</a></li>
+				<li><a r-class={{active:filter=='active'}} href="javascript:void(0);" on-click={this.actions.changeFilter('active')}>active</a></li>
+				<li><a r-class={{active:filter=='completed'}} href="javascript:void(0);" on-click={this.actions.changeFilter('completed')}>completed</a></li>
 				<li><label><input type="checkbox" r-model={isAllCompleted} />toggle all</label> </li>
 			</ul>
-			<button>clearm {completedLength} completed</button>
+			<button on-click={this.actions.clearCompleted()}>clearm {completedLength} completed</button>
 		</footer>
 	</script>
 	<script type="text/javascript" src="./dist/bundle.js"></script>

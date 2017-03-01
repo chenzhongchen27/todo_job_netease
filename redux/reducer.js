@@ -14,7 +14,6 @@ var defaultData = {
 	}]
 	,editing:null
 	,filter:'active'
-	,newTodo:''
 }
 
 function reducer(state=defaultData,action){
@@ -28,13 +27,22 @@ function reducer(state=defaultData,action){
 			//保证每次return的都是不同的对象，这是redux原则
 			return Object.assign({},state,{
 				todos:todos
-				,newTodo:''
 			});
 		case 'delete-todo':
 			let todos2 = state.todos.filter(todo=>todo.uid!==action.uid)
 			return Object.assign({},state,{
 				todos:todos2
 			});			
+		case 'change-filter':
+			let newstate = Object.assign({},state,{
+				filter:action.filter
+			})
+			return newstate;
+		case "clear-completed":
+			let todos3 = state.todos.filter(todo=>!todo.completed)
+			return Object.assign({},state,{
+				todos:todos3
+			});	
 		default:
 			return state;
 	}

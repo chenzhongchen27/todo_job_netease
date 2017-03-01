@@ -36,4 +36,5 @@ module.exports = {
 		extensions:['.js','.json']
 	}
 	,plugins:[extractCss]
+	,devtool:"inline-source-map"
 }
