@@ -8,7 +8,7 @@ var store = createStore(reducer)
 
 var TodoMVC = Regular.extend({
 	template:'#todomvc'
-	,data:store.getState()
+	,data:generateViewData(store.getState())
 	,computed:{
 		isAllCompleted:{
 			get:function(){
@@ -42,7 +42,18 @@ var todoMVC = new TodoMVC()
 todoMVC.$inject('#todoapp')
 //保证每次newTodo改变后todoMVC
 store.subscribe(function(){
-	todoMVC.data = store.getState();
+	todoMVC.data = generateViewData(store.getState());
 	todoMVC.$update()
 })
 
+function generateViewData(storeData){
+	let todos;
+	if(storeData.filter=='active'){
+		todos = storeData.todos.filter(todo=>!todo.completed)
+	}else if(storeData.filter=='completed'){
+		todos = storeData.todos.filter(todo=>todo.completed)
+	}else{
+		todos = storeData.todos;
+	}
+	return Object.assign({},storeData,{todos});
+}

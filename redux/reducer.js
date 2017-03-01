@@ -5,7 +5,7 @@ var defaultData = {
 		,uid:Math.random()
 	},{
 		descript:'初始-第二条todo的项目'
-		,completed:true
+		,completed:false
 		,uid:Math.random()
 	},{
 		descript:'初始-第三条todo的项目'
@@ -13,7 +13,7 @@ var defaultData = {
 		,uid:Math.random()
 	}]
 	,editing:null
-	,filter:'active'
+	,filter:'completed'
 }
 
 function reducer(state=defaultData,action){
