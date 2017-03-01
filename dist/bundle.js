@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 24);
+/******/ 	return __webpack_require__(__webpack_require__.s = 26);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,7 +71,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root_js__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root_js__ = __webpack_require__(17);
 
 
 /** Built-in value references. */
@@ -85,9 +85,9 @@ var Symbol = __WEBPACK_IMPORTED_MODULE_0__root_js__["a" /* default */].Symbol;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGetTag_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getPrototype_js__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__isObjectLike_js__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGetTag_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getPrototype_js__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__isObjectLike_js__ = __webpack_require__(18);
 
 
 
@@ -385,7 +385,7 @@ function compose() {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_es_isPlainObject__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_symbol_observable__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ActionTypes; });
 /* harmony export (immutable) */ __webpack_exports__["a"] = createStore;
@@ -695,20 +695,109 @@ module.exports = g;
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var actionCreators = {
+	addTodo: function addTodo(newTodo) {
+		return {
+			type: 'add-todo',
+			newTodo: newTodo
+		};
+	},
+	deleteTodo: function deleteTodo(uid) {
+		return {
+			type: 'delete-todo',
+			uid: uid
+		};
+	},
+	toggleOne: function toggleOne(uid) {
+		return {
+			type: 'toggle-one',
+			uid: uid
+		};
+	}
+};
+
+module.exports = actionCreators;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var defaultData = {
+	todos: [{
+		descript: '初始-第一条todo的项目',
+		completed: true,
+		uid: Math.random()
+	}, {
+		descript: '初始-第二条todo的项目',
+		completed: true,
+		uid: Math.random()
+	}, {
+		descript: '初始-第三条todo的项目',
+		completed: true,
+		uid: Math.random()
+	}],
+	editing: null,
+	filter: 'active',
+	newTodo: ''
+};
+
+function reducer() {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultData;
+	var action = arguments[1];
+
+	switch (action.type) {
+		case 'add-todo':
+			var todos = [{
+				descript: action.newTodo,
+				completed: false,
+				uid: Math.random()
+			}].concat(state.todos);
+			//保证每次return的都是不同的对象，这是redux原则
+			return Object.assign({}, state, {
+				todos: todos,
+				newTodo: ''
+			});
+		case 'delete-todo':
+			var todos2 = state.todos.filter(function (todo) {
+				return todo.uid !== action.uid;
+			});
+			return Object.assign({}, state, {
+				todos: todos2
+			});
+		default:
+			return state;
+	}
+}
+
+exports.default = reducer;
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(5);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createStore", function() { return __WEBPACK_IMPORTED_MODULE_0__createStore__["a"]; });
@@ -737,13 +826,13 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getRawTag_js__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objectToString_js__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getRawTag_js__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objectToString_js__ = __webpack_require__(15);
 
 
 
@@ -775,7 +864,7 @@ function baseGetTag(value) {
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -787,11 +876,11 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(6)))
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__overArg_js__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__overArg_js__ = __webpack_require__(16);
 
 
 /** Built-in value references. */
@@ -801,7 +890,7 @@ var getPrototype = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__overArg_js
 
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -855,7 +944,7 @@ function getRawTag(value) {
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -884,7 +973,7 @@ function objectToString(value) {
 
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -906,11 +995,11 @@ function overArg(func, transform) {
 
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__ = __webpack_require__(12);
 
 
 /** Detect free variable `self`. */
@@ -923,7 +1012,7 @@ var root = __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__["a" /* default */] || fr
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -959,7 +1048,7 @@ function isObjectLike(value) {
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1015,7 +1104,7 @@ function applyMiddleware() {
 }
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1069,7 +1158,7 @@ function bindActionCreators(actionCreators, dispatch) {
 }
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1209,14 +1298,14 @@ function combineReducers(reducers) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(21);
+module.exports = __webpack_require__(23);
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1226,7 +1315,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ponyfill = __webpack_require__(22);
+var _ponyfill = __webpack_require__(24);
 
 var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
@@ -1249,10 +1338,10 @@ if (typeof self !== 'undefined') {
 
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(23)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(25)(module)))
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1281,7 +1370,7 @@ function symbolObservablePonyfill(root) {
 };
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -1309,69 +1398,27 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(10);
 
-__webpack_require__(7);
+var _actionCreators = __webpack_require__(7);
 
-var defaultData = {
-	todos: [{
-		descript: '初始-第一条todo的项目',
-		completed: true,
-		uid: new Date().getTime()
-	}, {
-		descript: '初始-第二条todo的项目',
-		completed: false,
-		uid: new Date().getTime()
-	}, {
-		descript: '初始-第三条todo的项目',
-		completed: true,
-		uid: new Date().getTime()
-	}, {
-		descript: '初始-第三条todo的项目',
-		completed: true,
-		uid: new Date().getTime()
-	}],
-	editing: null,
-	filter: 'all',
-	newTodo: ''
-};
+var _actionCreators2 = _interopRequireDefault(_actionCreators);
 
-function counter() {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultData;
-	var action = arguments[1];
+var _reducer = __webpack_require__(8);
 
-	switch (action.type) {
-		case 'add-todo':
-			var todos = [{
-				descript: action.newTodo,
-				completed: false,
-				uid: new Date().getTime()
-			}].concat(state.todos);
-			//保证每次return的都是不同的对象，这是redux原则
-			return Object.assign({}, state, {
-				todos: todos,
-				newTodo: ''
-			});
-		default:
-			return state;
-	}
-}
-var store = (0, _redux.createStore)(counter);
+var _reducer2 = _interopRequireDefault(_reducer);
 
-var actionGenerators = {
-	addTodo: function addTodo(newTodo) {
-		return {
-			type: 'add-todo',
-			newTodo: newTodo
-		};
-	}
-};
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+__webpack_require__(9);
+
+var store = (0, _redux.createStore)(_reducer2.default);
 
 var TodoMVC = Regular.extend({
 	template: '#todomvc',
@@ -1395,7 +1442,7 @@ var TodoMVC = Regular.extend({
 			}).length;
 		}
 	},
-	actions: (0, _redux.bindActionCreators)(actionGenerators, store.dispatch)
+	actions: (0, _redux.bindActionCreators)(_actionCreators2.default, store.dispatch)
 
 });
 TodoMVC.event('enter', function (elem, fire) {

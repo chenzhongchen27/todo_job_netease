@@ -1,57 +1,10 @@
 import { createStore,bindActionCreators } from 'redux'
+import actionCreators from './redux/actionCreators' 
+import reducer from './redux/reducer'
+
 require('./style/index.scss')
 
-var defaultData = {
-	todos:[{
-		descript:'初始-第一条todo的项目'
-		,completed:true
-		,uid:new Date().getTime()
-	},{
-		descript:'初始-第二条todo的项目'
-		,completed:false
-		,uid:new Date().getTime()
-	},{
-		descript:'初始-第三条todo的项目'
-		,completed:true
-		,uid:new Date().getTime()
-	},{
-		descript:'初始-第三条todo的项目'
-		,completed:true
-		,uid:new Date().getTime()
-	}]
-	,editing:null
-	,filter:'all'
-	,newTodo:''
-}
-
-function counter(state=defaultData,action){
-	switch(action.type){
-		case 'add-todo':
-			let todos = [{
-				descript:action.newTodo
-				,completed:false
-				,uid:new Date().getTime()				
-			}].concat(state.todos)
-			//保证每次return的都是不同的对象，这是redux原则
-			return Object.assign({},state,{
-				todos:todos
-				,newTodo:''
-			});
-		default:
-			return state;
-	}
-}
-var store = createStore(counter)
-
-var actionGenerators = {
-	addTodo:function(newTodo){
-		return {
-			type:'add-todo'
-			,newTodo:newTodo
-		}
-	}
-}
-
+var store = createStore(reducer)
 
 var TodoMVC = Regular.extend({
 	template:'#todomvc'
@@ -69,7 +22,7 @@ var TodoMVC = Regular.extend({
 			return this.data.todos.filter(todo=>todo.completed).length
 		}
 	}
-	,actions:bindActionCreators(actionGenerators,store.dispatch)
+	,actions:bindActionCreators(actionCreators,store.dispatch)
 
 })
 TodoMVC.event('enter',function(elem,fire){
