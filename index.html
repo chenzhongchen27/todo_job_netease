@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>regularjs - todo练习页面</title>
+	<link rel="stylesheet" type="text/css" href="./dist/main.css">
+	<script type="text/javascript" src="resource/regular.js"></script>
+</head>
+<body>
+<!-- 	<h1>regularjs - todo 练习</h1>  -->	
+	<div id="todoapp" class=""></div>
+	<script type="template/regular" id="todomvc">
+		<input type="text" id="addTodo" name="addTodo" placeholder="新建todo项目" r-model={newTodo} on-enter={this.actions.addTodo(newTodo)}/>
+		<ul class="items">
+			{#list todos as todo}
+			<li class="item">
+				<input type="checkbox" class="toggleItem" r-model={todo.completed}/>
+				<span>{todo.descript}</span>
+				<button class="delete" on-click={true}>删除</button>
+			</li>
+			{/list}
+		</ul>
+		<footer class="control">
+			<span><strong>{todos.length}</strong> items </span>
+			<ul>
+				<li><a r-class={{active:filter=='all'}} href="">all</a></li>
+				<li><a r-class={{active:filter=='active'}} href="">active</a></li>
+				<li><a r-class={{active:filter=='completed'}} href="">completed</a></li>
+				<li><label><input type="checkbox" r-model={isAllCompleted} />toggle all</label> </li>
+			</ul>
+			<button>clearm {completedLength} completed</button>
+		</footer>
+	</script>
+	<script type="text/javascript" src="./dist/bundle.js"></script>
+</body>
+</html>
