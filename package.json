@@ -4,8 +4,9 @@
   "description": "入职大作业及练习代码",
   "main": "index.js",
   "scripts": {
-    "start": "browser-sync start --server --files dist/*,index.html",
-    "build": "webpack --watch"
+    "brs": "browser-sync start --server --files dist/*,index.html",
+    "build": "webpack --watch",
+    "start":"node server.js"
   },
   "author": "firstfly",
   "license": "ISC",
