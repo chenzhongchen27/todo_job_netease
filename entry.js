@@ -9,7 +9,7 @@ var store = createStore(reducer,applyMiddleware(thunk))
 
 var TodoMVC = Regular.extend({
 	template:'#todomvc'
-	,data:generateViewData(store.getState())
+	,data:store.getState()
 	,computed:{
 		isAllCompleted:function(){
 				return this.data.todos.every(todo=>todo.completed);
@@ -17,8 +17,22 @@ var TodoMVC = Regular.extend({
 		,completedLength:function(){
 			return this.data.todos.filter(todo=>todo.completed).length
 		}
+		,visibleTodos:function(){
+			return this.getVisibleTodos(this.data.filter)
+		}
 	}
 	,actions:bindActionCreators(actionCreators,store.dispatch)
+	,getVisibleTodos:function(filter){
+		var todos = []
+		if(filter=='active'){
+			todos = this.data.todos.filter(todo=>!todo.completed)
+		}else if(filter=='completed'){
+			todos = this.data.todos.filter(todo=>todo.completed)
+		}else{
+			todos = this.data.todos;
+		}
+		return todos;
+	}
 
 })
 TodoMVC.implement({
@@ -65,19 +79,8 @@ var todoMVC = new TodoMVC()
 todoMVC.$inject('#todoapp')
 //保证每次newTodo改变后todoMVC
 store.subscribe(function(){
-	todoMVC.data = generateViewData(store.getState());
+	todoMVC.data = store.getState()
 	todoMVC.$update()
 })
 
-function generateViewData(storeData){
-	let todos;
-	if(storeData.filter=='active'){
-		todos = storeData.todos.filter(todo=>!todo.completed)
-	}else if(storeData.filter=='completed'){
-		todos = storeData.todos.filter(todo=>todo.completed)
-	}else{
-		todos = storeData.todos;
-	}
-	// console.table(todos)
-	return Object.assign({},storeData,{todos});
-}
+
