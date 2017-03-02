@@ -14,7 +14,7 @@
 		<ul class="items">
 			{#list todos as todo}
 			<li class="item">
-				<input type="checkbox" class="toggleItem" r-model={todo.completed}/>
+				<input type="checkbox" class="toggleItem" on-change={this.actions.changeTodoCompleted(todo.uid,todo.completed)} checked={todo.completed}/>
 				<span>{todo.descript}</span>
 				<button class="delete" on-click={this.actions.deleteTodo(todo.uid)}>删除</button>
 			</li>

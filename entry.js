@@ -76,5 +76,6 @@ function generateViewData(storeData){
 	}else{
 		todos = storeData.todos;
 	}
+	// console.table(todos)
 	return Object.assign({},storeData,{todos});
 }

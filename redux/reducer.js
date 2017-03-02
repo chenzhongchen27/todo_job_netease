@@ -1,7 +1,7 @@
 var defaultData = {
 	todos:[{
 		descript:'初始-第一条todo的项目'
-		,completed:true
+		,completed:false
 		,uid:Math.random()
 	},{
 		descript:'初始-第二条todo的项目'
@@ -13,7 +13,7 @@ var defaultData = {
 		,uid:Math.random()
 	}]
 	,editing:null
-	,filter:'completed'
+	,filter:'all'
 }
 
 function reducer(state=defaultData,action){
@@ -40,6 +40,17 @@ function reducer(state=defaultData,action){
 			let todos3 = state.todos.filter(todo=>!todo.completed)
 			return Object.assign({},state,{
 				todos:todos3
+			});	
+		case "change-todo-completed":
+			let todo4 = state.todos.map(todo=>{
+				if(todo.uid==action.uid){
+					return Object.assign({},todo,{completed:action.completed})
+				}else{
+					return todo;
+				};
+			})
+			return Object.assign({},state,{
+				todos:todo4
 			});	
 		default:
 			return state;

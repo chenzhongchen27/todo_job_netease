@@ -90,6 +90,31 @@ var actionCreators = {
 			})
 		}
 	}
+	,changeTodoCompleted:function(uid,completed){
+		return function(dispatch,getState){
+			fetch('/todoControl/changeTodoCompleted',{
+				credentials:'include'
+				,method:'POST'
+				,headers:{
+					'Content-Type':'application/json'
+				}
+				,body:JSON.stringify({
+					uid:uid
+					,completed:!completed
+				})
+			}).then(function(response){
+				return response.text()
+			}).then(function(body){
+				dispatch({
+					type:'change-todo-completed'
+					,uid:uid
+					,completed:!completed
+				})
+			}).catch(function(error){
+				console.error('changeTodoCompleted中fetch函数出错')
+			})
+		}
+	}
 }
 
 
