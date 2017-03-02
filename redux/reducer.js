@@ -1,6 +1,6 @@
 var defaultData = {
 	todos:[]
-	,editing:”“
+	,editing:''
 	,filter:'all'
 }
 

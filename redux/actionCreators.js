@@ -2,10 +2,10 @@ var actionCreators = {
 	fetchAllData:function(){
 		return function(dispatch,getState){
 			fetch('/todoControl/fetchAllData',{credentials:'include'}).then(function(response){return response.json()})
-			.then(function(body){
+			.then(function(data){
 				dispatch({
 					type:'fetch-all-data'
-					,data:body.data
+					,data:data
 				})
 			})
 		}

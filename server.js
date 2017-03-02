@@ -1,15 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
 var mongodbUrl = 'mongodb://server.firstfly.cn:12345/todojob'
-/*
-MongoClient.connect(url,function(err,db){
-	var collection = db.collection('todo');
-	collection.find({}).toArray(function(err,result){
-		console.log('已连接数据库 '+ url)
-		console.log('查询的结果',result[0].test)
-		db.close();
-	})
-})
-*/
+
 var util = require('./resource/util')
 var http = require('http')
 var fs = require('fs')
@@ -20,9 +11,25 @@ http.createServer(function(req,res){
 	let userId = ''
 	req.cookies = util.parseCookie(req.headers.cookie)
 	if(!req.cookies.userId){
-		res.setHeader('Set-cookie',util.serializeCookie('userId',Math.random()))
+		userId = Math.random()
+		res.setHeader('Set-cookie',util.serializeCookie('userId',userId))
+		//数据库中初始化数据
+		MongoClient.connect(mongodbUrl,function(err,db){
+			var collection = db.collection('todo');
+			collection.insert({name:userId,data:{todos:[],filter:'all'}},function(err,suc){
+				if(err){
+					// console.log('初始化name出错')
+					db.close()
+					res.end('初始化name出错');
+					return;
+				}
+				// console.log('初始化完成')
+				db.close()
+			})
+		})
 	}else{
-		userId = req.cookies.userId;
+		//cookie传递过来都为字符串，但数据库中为数字，需转换
+		userId = parseFloat(req.cookies.userId);
 	}
 
 	// var pathname = url.parse(req.url).pathname;
@@ -33,14 +40,7 @@ http.createServer(function(req,res){
 	var paths = pathname.split('/') //todoControl与操作方法 
 	var action = paths[2] //add,delete,modify,get
 	if(paths[1]=='todoControl'){
-		// MongoClient.connect(mongodbUrl,function(err,db){
-		// 	var collection = db.collection('user');
-		// 	collection.find({name:userId}).toArray(function(err,result){
-		// 		console.log('已连接数据库 '+ url)
-		// 		console.log('查询的结果',result[0])
-		// 		db.close();
-		// 	})
-		// })
+
 		switch(action){
 			case 'fetchAllData':
 			/**
@@ -49,16 +49,16 @@ http.createServer(function(req,res){
 			 */
 				MongoClient.connect(mongodbUrl,function(err,db){
 					var collection = db.collection('todo');
-					collection.find({name:userId}).toArray(function(err,result){
+					collection.findOne({name:userId},(function(err,result){
 						// console.log('已连接数据库 '+ url)
-						// console.log('查询的结果',result[0],'name',userId)
+						// console.log('查询的结果',result,'name',userId)
 						db.close();
 						res.writeHead(200)
-						res.end(JSON.stringify(result[0]||{
+						res.end(JSON.stringify((result&&result.data)||{
 							todos:[]
-							,filter:'all'
+							,filter:'active'
 						}))
-					})
+					}))
 				})
 				return;
 			case 'addTodo':
@@ -67,7 +67,7 @@ http.createServer(function(req,res){
 					content += chunk;
 				})
 				req.on('end',function(){
-					// console.log('数据接收完',content,JSON.parse(content))		
+					// console.log('数据接收完',content,JSON.parse(content),'nam是',userId)		
 					MongoClient.connect(mongodbUrl,function(err,db){
 						var collection = db.collection('todo');
 						collection.update({name:userId},{
@@ -84,6 +84,7 @@ http.createServer(function(req,res){
 								res.end('数据库操作出错'+err)
 								return;
 							}
+							// console.log('addtodo完成')
 							res.writeHead(200)
 							res.end('success')
 						})
@@ -244,18 +245,7 @@ http.createServer(function(req,res){
 								res.end('success')
 							})
 						})
-						// collection.updateMany({name:userId,'data.todos.uid':receiveData.uid},{
-						// 	$set:{"data.todos.$.completed":receiveData.completed}
-						// },function(err,r){
-						// 	db.close();
-						// 	if(err){
-						// 		res.writeHead(500)
-						// 		res.end('数据库操作出错'+err)
-						// 		return;
-						// 	}
-						// 	res.writeHead(200)
-						// 	res.end('success')
-						// })
+
 					})
 				})
 				return;
@@ -279,15 +269,7 @@ http.createServer(function(req,res){
 				res.writeHead(404)
 				res.end('无此资源')				
 			}
-			// fs.readFile('.'+pathname,function(err,data){
-			// 	if(!err){
-			// 		res.writeHead(404)
-			// 		res.end('无此资源')
-			// 	}
-			// 	res.writeHead(200)
-				// console.log('读取的数据',data)
-			// 	res.end(data.toString())
-			// })	
+
 		}
 	}
 }).listen(8082,'127.0.0.1')
