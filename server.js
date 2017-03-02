@@ -39,6 +39,7 @@ http.createServer(function(req,res){
 
 	var paths = pathname.split('/') //todoControl与操作方法 
 	var action = paths[2] //add,delete,modify,get
+	// res.setHeader('Access-Control-Allow-Origin','*')
 	if(paths[1]=='todoControl'){
 
 		switch(action){
@@ -274,5 +275,5 @@ http.createServer(function(req,res){
 	}
 }).listen(8082,'127.0.0.1')
 
-console.log("Server start on port 8082")
+console.log("Server start on port 8082，please open locaolhost:8082")
 
