@@ -26,6 +26,13 @@ TodoMVC.implement({
 		$init:function(){
 			//取数据
 			this.actions.fetchAllData();
+			var self = this;
+			//点击非编辑todo之外的地方时，取消editing字段，则可以清除编辑todo的效果
+			document.addEventListener('click',function(e){
+			   if(!e.target.className.indexOf('edittext')>-1){
+			   		self.actions.startEdit('')
+			   }
+			})
 		}
 		// ,enter:function(elem,fire){
 		// 	function update(ev){

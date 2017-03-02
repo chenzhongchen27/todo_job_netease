@@ -15,8 +15,12 @@
 			{#list todos as todo}
 			<li class="item">
 				<input type="checkbox" class="toggleItem" on-change={this.actions.changeTodoCompleted(todo.uid,todo.completed)} checked={todo.completed}/>
-				<input type="text" r-hide={editing!=todo.uid} on-enter={this.actions.changeTodo($event,todo.uid,todo.descript)} value={todo.descript} />
-				<span r-hide={editing==todo.uid}  on-dblclick={this.actions.startEdit(todo.uid)}>{todo.descript}</span>
+				{#if editing==todo.uid}
+					<input class="edittext" type="text" on-enter={this.actions.changeTodo($event,todo.uid,todo.descript)} value={todo.descript} />
+				{#else}
+					<span class="showText" on-dblclick={this.actions.startEdit(todo.uid)}>{todo.descript}</span>
+				{/if}
+
 				<button class="delete" on-click={this.actions.deleteTodo(todo.uid)}>删除</button>
 			</li>
 			{/list}
