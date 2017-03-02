@@ -18,6 +18,9 @@ var defaultData = {
 
 function reducer(state=defaultData,action){
 	switch(action.type){
+		case "fetch-all-data":
+		console.log('init时期准备取数据——reducer处理之前',action.data)
+			return Object.assign({},defaultData,action.data)
 		case 'add-todo':
 			let todos = [{
 				descript:action.newTodo

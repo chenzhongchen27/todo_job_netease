@@ -1,10 +1,11 @@
-import { createStore,bindActionCreators } from 'redux'
+import { createStore,bindActionCreators,applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 import actionCreators from './redux/actionCreators' 
 import reducer from './redux/reducer'
 
 require('./style/index.scss')
 
-var store = createStore(reducer)
+var store = createStore(reducer,applyMiddleware(thunk))
 
 var TodoMVC = Regular.extend({
 	template:'#todomvc'
@@ -24,6 +25,15 @@ var TodoMVC = Regular.extend({
 	}
 	,actions:bindActionCreators(actionCreators,store.dispatch)
 
+})
+TodoMVC.implement({
+	events:{
+		$init:function(){
+			//取数据
+			console.log('init时期准备取数据')
+			this.actions.fetchAllData();
+		}
+	}
 })
 TodoMVC.event('enter',function(elem,fire){
 		function update(ev){

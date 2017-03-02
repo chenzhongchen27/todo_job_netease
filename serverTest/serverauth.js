@@ -7,7 +7,7 @@ http.createServer(function(req,res){
 	var encoded = parts[1] || '';  //user:password的base64加密结果
 	var decoded = (new Buffer(encoded,'base64')).toString('utf-8').split(':')
 	var user = decoded[0]
-	var pass = decoded[0]
+	var pass = decoded[1]
 	if(user=='dmin'&&pass=='admin'){
 		res.writeHead(200)
 		res.end('登录成功')

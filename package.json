@@ -14,8 +14,10 @@
     "css-loader": "^0.26.2",
     "mongodb": "^2.2.24",
     "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.2",
-    "style-loader": "^0.13.2"
+    "style-loader": "^0.13.2",
+    "whatwg-fetch": "^2.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",

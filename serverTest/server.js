@@ -5,6 +5,7 @@ http.createServer(function(req,res){
 	if(req.method=='GET'){
 		if(req.url=='/' || req.url=='/index.html'){
 			fs.readFile('./index.html',function(err,data){
+				res.setHeader('Access-Control-Allow-Origin','*')
 				res.writeHead(200,{'Content-Type':'text/html'});
 				res.end(data);
 			})		
