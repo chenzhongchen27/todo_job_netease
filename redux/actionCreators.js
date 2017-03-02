@@ -40,9 +40,19 @@ var actionCreators = {
 		}
 	}
 	,deleteTodo:function(uid){
-		return {
-			type:'delete-todo'
-			,uid:uid
+		return function(dispatch,getState){
+			fetch('/todoControl/deleteTodo?uid='+uid,{
+				credentials:'include'
+			}).then(function(response){
+				return response.text()
+			}).then(function(body){
+				dispatch({
+					type:'delete-todo'
+					,uid:uid
+				})
+			}).catch(function(error){
+				console.error('deletoTodo中fetch函数出错')
+			})
 		}
 	}
 	,changeFilter:function(filter){

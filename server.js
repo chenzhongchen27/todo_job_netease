@@ -25,7 +25,11 @@ http.createServer(function(req,res){
 		userId = req.cookies.userId;
 	}
 
-	var pathname = url.parse(req.url).pathname;
+	// var pathname = url.parse(req.url).pathname;
+	var urlParsed = url.parse(req.url,true);
+	var pathname = urlParsed.pathname
+	req.query = urlParsed.query;
+
 	var paths = pathname.split('/') //todoControl与操作方法 
 	var action = paths[2] //add,delete,modify,get
 	if(paths[1]=='todoControl'){
@@ -87,6 +91,37 @@ http.createServer(function(req,res){
 					})
 				})
 				return ;
+			case 'deleteTodo':
+			/**
+			 * mongodb删除的语句
+			 * db.todo.update({name:'test1'},{$pull:{'data.todos':{uid:0.26773801942553255}}},{multi:true})
+			 */
+			 	if(!req.query.uid){
+			 		console.log('delete-todo必须指明删除的uid')
+			 		res.write(404)
+			 		res.end('delete-todo必须指明删除的uid')
+			 		return;
+			 	}
+				MongoClient.connect(mongodbUrl,function(err,db){
+					var collection = db.collection('todo');
+					collection.updateMany({
+						name:userId
+					},{
+						$pull:{'data.todos':{uid:parseFloat(req.query.uid)}}
+					},{
+						multi:true
+					},function(err,r){
+						db.close();
+						if(err){
+							res.writeHead(500)
+							res.end('数据库操作出错'+err)
+							return;
+						}
+						res.writeHead(200)
+						res.end('success')
+					})
+				})
+				return;
 			default:
 				res.writeHead(404);
 				res.end('action错误: '+ action)
