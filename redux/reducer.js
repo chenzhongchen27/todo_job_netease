@@ -1,18 +1,6 @@
 var defaultData = {
-	todos:[{
-		descript:'初始-第一条todo的项目'
-		,completed:false
-		,uid:Math.random()
-	},{
-		descript:'初始-第二条todo的项目'
-		,completed:false
-		,uid:Math.random()
-	},{
-		descript:'初始-第三条todo的项目'
-		,completed:true
-		,uid:Math.random()
-	}]
-	,editing:0.5647982430928387
+	todos:[]
+	,editing:”“
 	,filter:'all'
 }
 

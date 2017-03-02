@@ -50,8 +50,8 @@ http.createServer(function(req,res){
 				MongoClient.connect(mongodbUrl,function(err,db){
 					var collection = db.collection('todo');
 					collection.find({name:userId}).toArray(function(err,result){
-						console.log('已连接数据库 '+ url)
-						console.log('查询的结果',result[0],'name',userId)
+						// console.log('已连接数据库 '+ url)
+						// console.log('查询的结果',result[0],'name',userId)
 						db.close();
 						res.writeHead(200)
 						res.end(JSON.stringify(result[0]||{
@@ -67,7 +67,7 @@ http.createServer(function(req,res){
 					content += chunk;
 				})
 				req.on('end',function(){
-					console.log('数据接收完',content,JSON.parse(content))		
+					// console.log('数据接收完',content,JSON.parse(content))		
 					MongoClient.connect(mongodbUrl,function(err,db){
 						var collection = db.collection('todo');
 						collection.update({name:userId},{
@@ -96,7 +96,7 @@ http.createServer(function(req,res){
 			 * db.todo.update({name:'test1'},{$pull:{'data.todos':{uid:0.26773801942553255}}},{multi:true})
 			 */
 			 	if(!req.query.uid){
-			 		console.log('delete-todo必须指明删除的uid')
+			 		// console.log('delete-todo必须指明删除的uid')
 			 		res.write(404)
 			 		res.end('delete-todo必须指明删除的uid')
 			 		return;
@@ -230,7 +230,7 @@ http.createServer(function(req,res){
 					MongoClient.connect(mongodbUrl,function(err,db){
 						var collection = db.collection('todo');
 						var receiveData = JSON.parse(content4)
-						console.log('接受的数据',receiveData)
+						// console.log('接受的数据',receiveData)
 						collection.findOne({name:userId},function(err,doc){
 							let todos = doc.data.todos.map(function(todo){
 								todo.completed = receiveData.bol;
@@ -285,7 +285,7 @@ http.createServer(function(req,res){
 			// 		res.end('无此资源')
 			// 	}
 			// 	res.writeHead(200)
-			// 	console.log('读取的数据',data)
+				// console.log('读取的数据',data)
 			// 	res.end(data.toString())
 			// })	
 		}
