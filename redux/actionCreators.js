@@ -61,11 +61,21 @@ var actionCreators = {
 			,filter:filter
 		}
 	}
+	
 	,clearCompleted:function(){
-		return {
-			type:'clear-completed'
+		return function(dispatch,getState){
+			fetch('/todoControl/clearCompleted',{
+				credentials:'include'
+			}).then(function(response){
+				return response.text()
+			}).then(function(body){
+				dispatch({
+					type:'clear-completed'
+				})
+			})
 		}
 	}
 }
+
 
 module.exports = actionCreators;

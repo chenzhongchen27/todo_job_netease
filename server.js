@@ -122,6 +122,27 @@ http.createServer(function(req,res){
 					})
 				})
 				return;
+			case 'clearCompleted':
+				MongoClient.connect(mongodbUrl,function(err,db){
+					var collection = db.collection('todo');
+					collection.updateMany({
+						name:userId
+					},{
+						$pull:{'data.todos':{completed:true}}
+					},{
+						multi:true
+					},function(err,r){
+						db.close();
+						if(err){
+							res.writeHead(500)
+							res.end('数据库操作出错'+err)
+							return;
+						}
+						res.writeHead(200)
+						res.end('success')
+					})
+				})
+				return;
 			default:
 				res.writeHead(404);
 				res.end('action错误: '+ action)
