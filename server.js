@@ -143,6 +143,32 @@ http.createServer(function(req,res){
 					})
 				})
 				return;
+			case 'changeFilter':
+				let filter = ''
+				req.on('data',function(chunk){
+					filter += chunk;
+				})
+				req.on('end',function(){
+					MongoClient.connect(mongodbUrl,function(err,db){
+						var collection = db.collection('todo');
+
+						collection.updateMany({name:userId},{
+							$set:{
+								'data.filter':JSON.parse(filter)['filter']
+							}
+						},function(err,r){
+							db.close();
+							if(err){
+								res.writeHead(500)
+								res.end('数据库操作出错'+err)
+								return;
+							}
+							res.writeHead(200)
+							res.end('success')
+						})
+					})
+				})
+				return;
 			default:
 				res.writeHead(404);
 				res.end('action错误: '+ action)

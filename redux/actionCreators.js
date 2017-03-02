@@ -56,12 +56,27 @@ var actionCreators = {
 		}
 	}
 	,changeFilter:function(filter){
-		return {
-			type:'change-filter'
-			,filter:filter
+		return function(dispatch,getState){
+			fetch('/todoControl/changeFilter',{
+				credentials:'include'
+				,method:'POST'
+				,headers:{
+					'Content-Type':'application/json'
+				}
+				,body:JSON.stringify({filter:filter})
+			}).then(function(response){
+				return response.text()
+			}).then(function(body){
+				console.log('设置的过滤条件为：',filter)
+				dispatch({
+					type:'change-filter'
+					,filter:filter
+				})
+			}).catch(function(error){
+				console.error('changeFilter中fetch函数出错')
+			})
 		}
 	}
-	
 	,clearCompleted:function(){
 		return function(dispatch,getState){
 			fetch('/todoControl/clearCompleted',{
