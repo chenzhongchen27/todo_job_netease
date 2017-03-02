@@ -30,9 +30,20 @@ TodoMVC.implement({
 	events:{
 		$init:function(){
 			//取数据
-			console.log('init时期准备取数据')
 			this.actions.fetchAllData();
 		}
+		// ,enter:function(elem,fire){
+		// 	function update(ev){
+		// 		if(ev.which == 13){
+		// 			ev.preventDefault();
+		// 			fire(ev)
+		// 		}
+		// 	}
+		// 	Regular.dom.on(elem,'keypress',update);
+		// 	return function destory(){
+		// 		dom.off(elem,'keypress',update)
+		// 	}
+		// }
 	}
 })
 TodoMVC.event('enter',function(elem,fire){

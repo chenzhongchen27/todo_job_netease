@@ -19,14 +19,9 @@ var defaultData = {
 function reducer(state=defaultData,action){
 	switch(action.type){
 		case "fetch-all-data":
-		console.log('init时期准备取数据——reducer处理之前',action.data)
 			return Object.assign({},defaultData,action.data)
 		case 'add-todo':
-			let todos = [{
-				descript:action.newTodo
-				,completed:false
-				,uid:Math.random()				
-			}].concat(state.todos)
+			let todos = [action.data].concat(state.todos)
 			//保证每次return的都是不同的对象，这是redux原则
 			return Object.assign({},state,{
 				todos:todos
