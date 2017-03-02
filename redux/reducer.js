@@ -12,7 +12,7 @@ var defaultData = {
 		,completed:true
 		,uid:Math.random()
 	}]
-	,editing:null
+	,editing:0.5647982430928387
 	,filter:'all'
 }
 
@@ -58,6 +58,22 @@ function reducer(state=defaultData,action){
 			})
 			return Object.assign({},state,{
 				todos:todo5
+			});	
+		case "change-todo":
+			let todo6 = state.todos.map(todo=>{
+				if(todo.uid==action.uid){
+					return Object.assign({},todo,{descript:action.newDes})
+				}else{
+					return todo;
+				};
+			})
+			return Object.assign({},state,{
+				todos:todo6
+				,editing:''
+			});	
+		case "start-edit":
+			return Object.assign({},state,{
+				editing:action.uid
 			});	
 		default:
 			return state;

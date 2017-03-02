@@ -138,6 +138,48 @@ var actionCreators = {
 			})
 		}
 	}
+	,changeTodo:function(ev,uid,oldValue){
+		let newDes=ev.target.value;
+		ev.target.value=''
+
+		return function(dispatch,getState){
+			fetch('/todoControl/changeTodo',{
+				credentials:'include'
+				,method:'POST'
+				,headers:{
+					'Content-Type':'application/json'
+				}
+				,body:JSON.stringify({
+					uid:uid
+					,newDes:newDes
+				})
+			}).then(function(response){
+				return response.text()
+			}).then(function(body){
+				dispatch({
+					type:'change-todo'
+					,uid:uid
+					,newDes:newDes
+				})
+			}).catch(function(error){
+				console.error('changeTodo中fetch函数出错')
+			})
+		}
+
+		// return {
+		// 	type:'change-todo'
+		// 	,newDes:newDes
+		// 	,uid:uid
+		// }
+	}
+	,startEdit:function(uid){
+		//editing不在云端存储
+		return {
+			type:'start-edit'
+			,uid:uid
+		}
+	}
+
 }
 
 

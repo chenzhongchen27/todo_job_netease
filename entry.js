@@ -50,7 +50,7 @@ TodoMVC.event('enter',function(elem,fire){
 		}
 		Regular.dom.on(elem,'keypress',update);
 		return function destory(){
-			dom.off(elem,'keypress',update)
+			Regular.dom.off(elem,'keypress',update)
 		}
 	}
 )
@@ -71,6 +71,6 @@ function generateViewData(storeData){
 	}else{
 		todos = storeData.todos;
 	}
-	console.table(todos)
+	// console.table(todos)
 	return Object.assign({},storeData,{todos});
 }
