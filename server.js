@@ -193,6 +193,49 @@ http.createServer(function(req,res){
 					})
 				})
 				return;
+			case 'changeAllTodoCompleted':
+			/**
+			 * 测试的curl命令
+			 * curl http://localhost:8082/todoControl/changeAllTodoCompleted --cookie 'userId=test2' -d '{"bol":false}'
+			 */
+				let content3 = ''
+				req.on('data',function(chunk){
+					content3 += chunk;
+				})
+				req.on('end',function(){
+					MongoClient.connect(mongodbUrl,function(err,db){
+						var collection = db.collection('todo');
+						var receiveData = JSON.parse(content3)
+						console.log('接受的数据',receiveData)
+						collection.findOne({name:userId},function(err,doc){
+							let todos = doc.data.todos.map(function(todo){
+								todo.completed = receiveData.bol;
+								return todo;
+							})
+							collection.update({name:userId},{$set:{
+								"data.todos":todos
+							}},function(err,r){
+								db.close();
+								res.writeHead(200)
+								res.end('success')
+							})
+						})
+						// collection.updateMany({name:userId,'data.todos.uid':receiveData.uid},{
+						// 	$set:{"data.todos.$.completed":receiveData.completed}
+						// },function(err,r){
+						// 	db.close();
+						// 	if(err){
+						// 		res.writeHead(500)
+						// 		res.end('数据库操作出错'+err)
+						// 		return;
+						// 	}
+						// 	res.writeHead(200)
+						// 	res.end('success')
+						// })
+					})
+				})
+				return;
+
 			default:
 				res.writeHead(404);
 				res.end('action错误: '+ action)

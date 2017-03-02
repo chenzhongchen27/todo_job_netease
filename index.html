@@ -26,7 +26,7 @@
 				<li><a r-class={{active:filter=='all'}} href="javascript:void(0);" on-click={this.actions.changeFilter('all')}>all</a></li>
 				<li><a r-class={{active:filter=='active'}} href="javascript:void(0);" on-click={this.actions.changeFilter('active')}>active</a></li>
 				<li><a r-class={{active:filter=='completed'}} href="javascript:void(0);" on-click={this.actions.changeFilter('completed')}>completed</a></li>
-				<li><label><input type="checkbox" r-model={isAllCompleted} />toggle all</label> </li>
+				<li><label><input type="checkbox" on-change={this.actions.changeAllTodoCompleted(!isAllCompleted)} checked={isAllCompleted} />toggle all</label> </li>
 			</ul>
 			<button on-click={this.actions.clearCompleted()}>clearm {completedLength} completed</button>
 		</footer>

@@ -52,6 +52,13 @@ function reducer(state=defaultData,action){
 			return Object.assign({},state,{
 				todos:todo4
 			});	
+		case "change-all-todo-completed":
+			let todo5 = state.todos.map(todo=>{
+				return Object.assign({},todo,{completed:action.bol})
+			})
+			return Object.assign({},state,{
+				todos:todo5
+			});	
 		default:
 			return state;
 	}

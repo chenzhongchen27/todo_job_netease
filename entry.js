@@ -11,13 +11,8 @@ var TodoMVC = Regular.extend({
 	template:'#todomvc'
 	,data:generateViewData(store.getState())
 	,computed:{
-		isAllCompleted:{
-			get:function(){
+		isAllCompleted:function(){
 				return this.data.todos.every(todo=>todo.completed);
-			}
-			,set:function(bol){this.data.todos.forEach(
-				(todo)=>todo.completed = bol
-			)}
 		}
 		,completedLength:function(){
 			return this.data.todos.filter(todo=>todo.completed).length
@@ -76,6 +71,6 @@ function generateViewData(storeData){
 	}else{
 		todos = storeData.todos;
 	}
-	// console.table(todos)
+	console.table(todos)
 	return Object.assign({},storeData,{todos});
 }

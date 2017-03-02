@@ -115,6 +115,29 @@ var actionCreators = {
 			})
 		}
 	}
+	,changeAllTodoCompleted:function(bol){
+		return function(dispatch,getState){
+			fetch('/todoControl/changeAllTodoCompleted',{
+				credentials:'include'
+				,method:'POST'
+				,headers:{
+					'Content-Type':'application/json'
+				}
+				,body:JSON.stringify({
+					bol:bol
+				})
+			}).then(function(response){
+				return response.text()
+			}).then(function(body){
+				dispatch({
+					type:'change-all-todo-completed'
+					,bol:bol
+				})
+			}).catch(function(error){
+				console.error('changeAllTodoCompleted中fetch函数出错')
+			})
+		}
+	}
 }
 
 
