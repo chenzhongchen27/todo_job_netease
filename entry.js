@@ -2,10 +2,11 @@ import { createStore,bindActionCreators,applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import actionCreators from './redux/actionCreators' 
 import reducer from './redux/reducer'
+import fetchMiddleware from './redux/fetchMiddleware.js'
 
 require('./style/index.scss')
 
-var store = createStore(reducer,applyMiddleware(thunk))
+var store = createStore(reducer,applyMiddleware(fetchMiddleware,thunk))
 
 var TodoMVC = Regular.extend({
 	template:'#todomvc'
@@ -43,7 +44,7 @@ TodoMVC.implement({
 			var self = this;
 			//点击非编辑todo之外的地方时，取消editing字段，则可以清除编辑todo的效果
 			document.addEventListener('click',function(e){
-			   if(!e.target.className.indexOf('edittext')>-1){
+			   if(!(e.target.className.indexOf('edittext')>-1)){
 			   		self.actions.startEdit('')
 			   }
 			})

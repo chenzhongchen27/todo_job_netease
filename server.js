@@ -87,7 +87,7 @@ http.createServer(function(req,res){
 							}
 							// console.log('addtodo完成')
 							res.writeHead(200)
-							res.end('success')
+							res.end(JSON.stringify('success'))
 						})
 					})
 				})
@@ -119,7 +119,7 @@ http.createServer(function(req,res){
 							return;
 						}
 						res.writeHead(200)
-						res.end('success')
+						res.end(JSON.stringify('success'))
 					})
 				})
 				return;
@@ -140,7 +140,7 @@ http.createServer(function(req,res){
 							return;
 						}
 						res.writeHead(200)
-						res.end('success')
+						res.end(JSON.stringify('success'))
 					})
 				})
 				return;
@@ -165,7 +165,7 @@ http.createServer(function(req,res){
 								return;
 							}
 							res.writeHead(200)
-							res.end('success')
+							res.end(JSON.stringify('success'))
 						})
 					})
 				})
@@ -189,7 +189,7 @@ http.createServer(function(req,res){
 								return;
 							}
 							res.writeHead(200)
-							res.end('success')
+							res.end(JSON.stringify('success'))
 						})
 					})
 				})
@@ -213,7 +213,7 @@ http.createServer(function(req,res){
 								return;
 							}
 							res.writeHead(200)
-							res.end('success')
+							res.end(JSON.stringify('success'))
 						})
 					})
 				})
@@ -243,7 +243,7 @@ http.createServer(function(req,res){
 							}},function(err,r){
 								db.close();
 								res.writeHead(200)
-								res.end('success')
+								res.end(JSON.stringify('success'))
 							})
 						})
 
