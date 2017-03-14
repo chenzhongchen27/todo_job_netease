@@ -6,30 +6,30 @@ var defaultData = {
 
 function reducer(state=defaultData,action){
 	switch(action.type){
-		case "fetch-all-data":
-			return Object.assign({},defaultData,action.data)
-		case 'add-todo':
+		case "fetch-all-data-success":
+			return Object.assign({},defaultData,action.response)
+		case 'add-todo-success':
 			let todos = [action.data].concat(state.todos)
 			//保证每次return的都是不同的对象，这是redux原则
 			return Object.assign({},state,{
 				todos:todos
 			});
-		case 'delete-todo':
+		case 'delete-todo-success':
 			let todos2 = state.todos.filter(todo=>todo.uid!==action.uid)
 			return Object.assign({},state,{
 				todos:todos2
 			});			
-		case 'change-filter':
+		case 'change-filter-success':
 			let newstate = Object.assign({},state,{
 				filter:action.filter
 			})
 			return newstate;
-		case "clear-completed":
+		case "clear-completed-success":
 			let todos3 = state.todos.filter(todo=>!todo.completed)
 			return Object.assign({},state,{
 				todos:todos3
 			});	
-		case "change-todo-completed":
+		case "change-todo-completed-success":
 			let todo4 = state.todos.map(todo=>{
 				if(todo.uid==action.uid){
 					return Object.assign({},todo,{completed:action.completed})
@@ -40,14 +40,14 @@ function reducer(state=defaultData,action){
 			return Object.assign({},state,{
 				todos:todo4
 			});	
-		case "change-all-todo-completed":
+		case "change-all-todo-completed-success":
 			let todo5 = state.todos.map(todo=>{
 				return Object.assign({},todo,{completed:action.bol})
 			})
 			return Object.assign({},state,{
 				todos:todo5
 			});	
-		case "change-todo":
+		case "change-todo-success":
 			let todo6 = state.todos.map(todo=>{
 				if(todo.uid==action.uid){
 					return Object.assign({},todo,{descript:action.newDes})

@@ -1,6 +1,15 @@
+import { CALLFETCH } from './fetchMiddleware.js'
+
 var actionCreators = {
 	fetchAllData:function(){
-		return function(dispatch,getState){
+		return {
+			[CALLFETCH]:{
+				method:'GET'
+				,url:'/todoControl/fetchAllData'
+				,types:['fetch-all-data-request','fetch-all-data-success','fetch-all-data-fail']
+			}
+		}
+		/*return function(dispatch,getState){
 			fetch('/todoControl/fetchAllData',{credentials:'include'}).then(function(response){return response.json()})
 			.then(function(data){
 				dispatch({
@@ -8,13 +17,28 @@ var actionCreators = {
 					,data:data
 				})
 			})
-		}
+		}*/
+
 	},
 
 	addTodo:function(ev){
 		let newTodo = ev.target.value;
 		ev.target.value = '' //清空
-		return function(dispatch,getState){
+		let data = {
+			descript:newTodo
+			,completed:false
+			,uid:Math.random()				
+		}
+		return {
+			[CALLFETCH]:{
+				url:'/todoControl/addTodo'
+				,types:['add-todo-request','add-todo-success','add-todo-fail']
+				,method:'POST'
+				,body:JSON.stringify(data)
+				,data:data
+			}
+		}
+/*		return function(dispatch,getState){
 			let data = {
 				descript:newTodo
 				,completed:false
@@ -37,10 +61,19 @@ var actionCreators = {
 			}).catch(function(error){
 				console.error('addTodo中fetch函数出错')
 			})
-		}
+		}*/
 	}
 	,deleteTodo:function(uid){
-		return function(dispatch,getState){
+		return {
+			[CALLFETCH]:{
+				url:'/todoControl/deleteTodo?uid='+uid
+				,types:['delete-todo-request','delete-todo-success','delete-todo-fail']
+				,method:'GET'
+				,body:JSON.stringify(uid)
+				,uid:uid
+			}
+		}
+/*		return function(dispatch,getState){
 			fetch('/todoControl/deleteTodo?uid='+uid,{
 				credentials:'include'
 			}).then(function(response){
@@ -53,10 +86,19 @@ var actionCreators = {
 			}).catch(function(error){
 				console.error('deletoTodo中fetch函数出错')
 			})
-		}
+		}*/
 	}
 	,changeFilter:function(filter){
-		return function(dispatch,getState){
+		return {
+			[CALLFETCH]:{
+				url:'/todoControl/changeFilter'
+				,types:['change-filter-request','change-filter-success','change-filter-fail']
+				,method:'POST'
+				,body:JSON.stringify({filter})
+				,filter:filter
+			}
+		}
+/*		return function(dispatch,getState){
 			fetch('/todoControl/changeFilter',{
 				credentials:'include'
 				,method:'POST'
@@ -75,10 +117,17 @@ var actionCreators = {
 			}).catch(function(error){
 				console.error('changeFilter中fetch函数出错')
 			})
-		}
+		}*/
 	}
 	,clearCompleted:function(){
-		return function(dispatch,getState){
+		return {
+			[CALLFETCH]:{
+				url:'/todoControl/clearCompleted'
+				,types:['clear-completed-request','clear-completed-success','clear-completed-fail']
+				,method:'GET'
+			}
+		}
+/*		return function(dispatch,getState){
 			fetch('/todoControl/clearCompleted',{
 				credentials:'include'
 			}).then(function(response){
@@ -88,10 +137,23 @@ var actionCreators = {
 					type:'clear-completed'
 				})
 			})
-		}
+		}*/
 	}
 	,changeTodoCompleted:function(uid,completed){
-		return function(dispatch,getState){
+		let data = {
+			uid:uid
+			,completed:!completed
+		}
+		return {
+			[CALLFETCH]:{
+				url:'/todoControl/changeTodoCompleted'
+				,types:['change-todo-completed-request','change-todo-completed-success','change-todo-completed-fail']
+				,method:'POST'
+				,body:JSON.stringify(data)
+				,...data
+			}
+		}
+/*		return function(dispatch,getState){
 			fetch('/todoControl/changeTodoCompleted',{
 				credentials:'include'
 				,method:'POST'
@@ -113,10 +175,19 @@ var actionCreators = {
 			}).catch(function(error){
 				console.error('changeTodoCompleted中fetch函数出错')
 			})
-		}
+		}*/
 	}
 	,changeAllTodoCompleted:function(bol){
-		return function(dispatch,getState){
+		return {
+			[CALLFETCH]:{
+				url:'/todoControl/changeAllTodoCompleted'
+				,types:['change-all-todo-completed-request','change-all-todo-completed-success','change-all-todo-completed-fail']
+				,method:'POST'
+				,body:JSON.stringify({bol})
+				,bol:bol
+			}
+		}
+/*		return function(dispatch,getState){
 			fetch('/todoControl/changeAllTodoCompleted',{
 				credentials:'include'
 				,method:'POST'
@@ -136,13 +207,26 @@ var actionCreators = {
 			}).catch(function(error){
 				console.error('changeAllTodoCompleted中fetch函数出错')
 			})
-		}
+		}*/
 	}
 	,changeTodo:function(ev,uid,oldValue){
+
 		let newDes=ev.target.value;
 		ev.target.value=''
-
-		return function(dispatch,getState){
+		let data= {
+			uid:uid
+			,newDes:newDes
+		}
+		return {
+			[CALLFETCH]:{
+				url:'/todoControl/changeTodo'
+				,types:['change-todo-request','change-todo-success','change-todo-fail']
+				,method:'POST'
+				,body:JSON.stringify(data)
+				,...data
+			}
+		}
+		/*return function(dispatch,getState){
 			fetch('/todoControl/changeTodo',{
 				credentials:'include'
 				,method:'POST'
@@ -164,7 +248,7 @@ var actionCreators = {
 			}).catch(function(error){
 				console.error('changeTodo中fetch函数出错')
 			})
-		}
+		}*/
 
 		// return {
 		// 	type:'change-todo'
