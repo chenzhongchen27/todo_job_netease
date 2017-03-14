@@ -273,7 +273,7 @@ http.createServer(function(req,res){
 
 		}
 	}
-}).listen(8082,'127.0.0.1')
+}).listen(8082,'0.0.0.0')
 
 console.log("Server start on port 8082，please open locaolhost:8082")
 
