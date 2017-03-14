@@ -34,6 +34,7 @@ export default store => next => action => {
 	console.log('具体请求配置',fetchConf)
 	//发出正式的网络请求，并处理成功与失败的action
 	fetch(url,fetchConf).then(function(response){
+		console.log(url,fetchConf,response,response.body)
 		return response.json() //解析数据，默认为json格式
 	}).then(function(data){
 		console.log('call fetch中间件——success')
@@ -44,7 +45,7 @@ export default store => next => action => {
 			,...otherFetchOpt
 		})
 	}).catch(function(err){
-		console.log('call fetch中间件——fail')
+		console.log('call fetch中间件——fail',err,err.message)
 		next({
 			type:failType
 			,error:err

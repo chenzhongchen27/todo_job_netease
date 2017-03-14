@@ -5,7 +5,7 @@ var actionCreators = {
 		return {
 			[CALLFETCH]:{
 				method:'GET'
-				,url:'/todoControl/fetchAllData'
+				,url:'http://server.firstfly.cn:8082/todoControl/fetchAllData'
 				,types:['fetch-all-data-request','fetch-all-data-success','fetch-all-data-fail']
 			}
 		}
@@ -31,7 +31,7 @@ var actionCreators = {
 		}
 		return {
 			[CALLFETCH]:{
-				url:'/todoControl/addTodo'
+				url:'http://server.firstfly.cn:8082/todoControl/addTodo'
 				,types:['add-todo-request','add-todo-success','add-todo-fail']
 				,method:'POST'
 				,body:JSON.stringify(data)
@@ -66,7 +66,7 @@ var actionCreators = {
 	,deleteTodo:function(uid){
 		return {
 			[CALLFETCH]:{
-				url:'/todoControl/deleteTodo?uid='+uid
+				url:'http://server.firstfly.cn:8082/todoControl/deleteTodo?uid='+uid
 				,types:['delete-todo-request','delete-todo-success','delete-todo-fail']
 				,method:'GET'
 				,body:JSON.stringify(uid)
@@ -91,7 +91,7 @@ var actionCreators = {
 	,changeFilter:function(filter){
 		return {
 			[CALLFETCH]:{
-				url:'/todoControl/changeFilter'
+				url:'http://server.firstfly.cn:8082/todoControl/changeFilter'
 				,types:['change-filter-request','change-filter-success','change-filter-fail']
 				,method:'POST'
 				,body:JSON.stringify({filter})
@@ -122,7 +122,7 @@ var actionCreators = {
 	,clearCompleted:function(){
 		return {
 			[CALLFETCH]:{
-				url:'/todoControl/clearCompleted'
+				url:'http://server.firstfly.cn:8082/todoControl/clearCompleted'
 				,types:['clear-completed-request','clear-completed-success','clear-completed-fail']
 				,method:'GET'
 			}
@@ -146,7 +146,7 @@ var actionCreators = {
 		}
 		return {
 			[CALLFETCH]:{
-				url:'/todoControl/changeTodoCompleted'
+				url:'http://server.firstfly.cn:8082/todoControl/changeTodoCompleted'
 				,types:['change-todo-completed-request','change-todo-completed-success','change-todo-completed-fail']
 				,method:'POST'
 				,body:JSON.stringify(data)
@@ -180,7 +180,7 @@ var actionCreators = {
 	,changeAllTodoCompleted:function(bol){
 		return {
 			[CALLFETCH]:{
-				url:'/todoControl/changeAllTodoCompleted'
+				url:'http://server.firstfly.cn:8082/todoControl/changeAllTodoCompleted'
 				,types:['change-all-todo-completed-request','change-all-todo-completed-success','change-all-todo-completed-fail']
 				,method:'POST'
 				,body:JSON.stringify({bol})
@@ -219,7 +219,7 @@ var actionCreators = {
 		}
 		return {
 			[CALLFETCH]:{
-				url:'/todoControl/changeTodo'
+				url:'http://server.firstfly.cn:8082/todoControl/changeTodo'
 				,types:['change-todo-request','change-todo-success','change-todo-fail']
 				,method:'POST'
 				,body:JSON.stringify(data)

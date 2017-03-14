@@ -2,6 +2,9 @@
 http://server.firstfly.cn:8082/    
 这是简单的通过pm2启动的线上服务器，即pm2 start server.js --watch    
 
+##通过phonegap将代码打包成apk，下载网址
+https://build.phonegap.com/apps/2522450/install/ziD2dPkxm3Acpwmdzm-1
+
 ##quickly start
 首先运行命令：npm start    
 然后打开在浏览器地址栏输入 localhost:8082    
