@@ -1,17 +1,17 @@
-##在线网站
+## 在线网站
 http://server.firstfly.cn:8082/    
 这是简单的通过pm2启动的线上服务器，即pm2 start server.js --watch    
 
-##通过phonegap将代码打包成apk，下载网址
+## 通过phonegap将代码打包成apk，下载网址
 https://build.phonegap.com/apps/2522450/install/ziD2dPkxm3Acpwmdzm-1
 
-##quickly start
+## quickly start
 首先运行命令：npm start    
 然后打开在浏览器地址栏输入 localhost:8082    
-在第一次访问时，会自动设置一个cookie {userId：Math.random())     作为唯一标志，可以实现数据云端存储，因作为练习regularjs所用，所以不支持用户名登录    
+在第一次访问时，会自动设置一个cookie {userId：Math.random()) 作为唯一标志，可以实现数据云端存储，因作为练习regularjs所用，所以不支持用户名登录    
 
 ------
-##文件目录说明
+## 文件目录说明
 /dist    
 >用webpack打包之后的js/css文件，index.html直接引用这里的文件   
 
@@ -31,29 +31,29 @@ https://build.phonegap.com/apps/2522450/install/ziD2dPkxm3Acpwmdzm-1
 /style
 >一个sass语法的scss文件,这个文件会通过webpack转换成css文件，放到dist／index.css中
 
-##package scripts命令说明
-####brs 
+## package scripts命令说明
+#### brs 
 >编写前端代码时所用，用到工具browser-sync，实现自动刷新功能。搭建好服务器之后，因为涉及跨域和fetch请求地址等差异暂时不再使用
 
-####build
+#### build
 >编写前端代码时所用，文件改变则自动打包打包到dist目录之下的功能，入口文件是entry.js
 
-####start
+#### start
 >用node启动本地服务器
 
 ------
 
-##技术原理
+## 技术原理
 前端用regualrjs、sass、redux、fech，用webpack实现bable转义、sass转义并打包等功能，用browser-sync实现自动刷新（在需要调整页面样式时很有用）。     
 后端用ndoejs、mongodb，没有用封装的框架，比如express、connect等。只用http模块、url模块、fs模块等搭建。mongdb等驱动用的是官方等nodejs驱动，没用使用moogoose等第三方驱动。     
 mongdb数据库是直接使用自己搭建的远程数据库
 
-##缺陷及改进想法
+## 缺陷及改进想法
 1，因为数据操作都得先在服务器上更改，再更改本地数据，所以操作起来速度太慢。后期准备改成，当本地数据改变之后，立即改变本地数据。但当远程服务器返回错误信息时，将数据恢复到之前的情况。       
 2，nodejs对数据库操作等代码重复部分太多，应该抽取出来      
 
 ------
-##serverTest文件夹
+## serverTest文件夹
 
 	servermvc.js handlers.js  
 	是 /controller/action/a/b/c 的url形式   
@@ -70,7 +70,7 @@ mongdb数据库是直接使用自己搭建的远程数据库
 	serverauth.js
 	练习Basic Authorization的代码
 
-##分支说明
+## 分支说明
 	
 	stage1 
 	练习的代码
