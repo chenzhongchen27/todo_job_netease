@@ -46,6 +46,8 @@ export default store => next => action => {
 		})
 	}).catch(function(err){
 		console.log('call fetch中间件——fail',err,err.message)
+		let resetAction = url.split('/').pop();
+		alert(resetAction+"请求失败，将数据恢复！")
 		next({
 			type:failType
 			,error:err

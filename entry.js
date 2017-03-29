@@ -82,6 +82,7 @@ todoMVC.$inject('#todoapp')
 //保证每次newTodo改变后todoMVC
 store.subscribe(function(){
 	todoMVC.data = store.getState()
+	console.table(todoMVC.data.todos)
 	todoMVC.$update()
 })
 

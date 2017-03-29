@@ -6,7 +6,8 @@ var actionCreators = {
 	fetchAllData:function(){
 		return {
 			[CALLFETCH]:{
-				method:'GET'
+				requestUid:Math.random()
+				,method:'GET'
 				,url:URLHOST+'/todoControl/fetchAllData'
 				,types:['fetch-all-data-request','fetch-all-data-success','fetch-all-data-fail']
 			}
@@ -33,7 +34,8 @@ var actionCreators = {
 		}
 		return {
 			[CALLFETCH]:{
-				url:URLHOST+'/todoControl/addTodo'
+				requestUid:Math.random()
+				,url:URLHOST+'/todoControl/addTodo'
 				,types:['add-todo-request','add-todo-success','add-todo-fail']
 				,method:'POST'
 				,body:JSON.stringify(data)
@@ -68,7 +70,8 @@ var actionCreators = {
 	,deleteTodo:function(uid){
 		return {
 			[CALLFETCH]:{
-				url:URLHOST+'/todoControl/deleteTodo?uid='+uid
+				requestUid:Math.random()
+				,url:URLHOST+'/todoControl/deleteTodo?uid='+uid
 				,types:['delete-todo-request','delete-todo-success','delete-todo-fail']
 				,method:'GET'
 				,body:JSON.stringify(uid)
@@ -93,7 +96,8 @@ var actionCreators = {
 	,changeFilter:function(filter){
 		return {
 			[CALLFETCH]:{
-				url:URLHOST+'/todoControl/changeFilter'
+				requestUid:Math.random()
+				,url:URLHOST+'/todoControl/changeFilter'
 				,types:['change-filter-request','change-filter-success','change-filter-fail']
 				,method:'POST'
 				,body:JSON.stringify({filter})
@@ -124,7 +128,8 @@ var actionCreators = {
 	,clearCompleted:function(){
 		return {
 			[CALLFETCH]:{
-				url:URLHOST+'/todoControl/clearCompleted'
+				requestUid:Math.random()
+				,url:URLHOST+'/todoControl/clearCompleted'
 				,types:['clear-completed-request','clear-completed-success','clear-completed-fail']
 				,method:'GET'
 			}
@@ -148,7 +153,8 @@ var actionCreators = {
 		}
 		return {
 			[CALLFETCH]:{
-				url:URLHOST+'/todoControl/changeTodoCompleted'
+				requestUid:Math.random()
+				,url:URLHOST+'/todoControl/changeTodoCompleted'
 				,types:['change-todo-completed-request','change-todo-completed-success','change-todo-completed-fail']
 				,method:'POST'
 				,body:JSON.stringify(data)
@@ -182,7 +188,8 @@ var actionCreators = {
 	,changeAllTodoCompleted:function(bol){
 		return {
 			[CALLFETCH]:{
-				url:URLHOST+'/todoControl/changeAllTodoCompleted'
+				requestUid:Math.random()
+				,url:URLHOST+'/todoControl/changeAllTodoCompleted'
 				,types:['change-all-todo-completed-request','change-all-todo-completed-success','change-all-todo-completed-fail']
 				,method:'POST'
 				,body:JSON.stringify({bol})
@@ -221,7 +228,8 @@ var actionCreators = {
 		}
 		return {
 			[CALLFETCH]:{
-				url:URLHOST+'/todoControl/changeTodo'
+				requestUid:Math.random()
+				,url:URLHOST+'/todoControl/changeTodo'
 				,types:['change-todo-request','change-todo-success','change-todo-fail']
 				,method:'POST'
 				,body:JSON.stringify(data)
