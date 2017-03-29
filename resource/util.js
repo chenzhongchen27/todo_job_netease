@@ -17,8 +17,11 @@ exports.serializeCookie = function (name,val){
 	return pairs.join('; ')
 }
 
+/**
+ * 初始化数据库，主要是如果根据userId在数据库中找不到数据，则先插入一些空数据，否则下次查询时会报错
+ * @return {[type]}             [description]
+ */
 async function initDB(MongoClient,mongodbUrl,userId){
-    debugger;
     let db = await MongoClient.connect(mongodbUrl);
     let collection = db.collection('todo');
         
@@ -48,6 +51,9 @@ async function initDB(MongoClient,mongodbUrl,userId){
 
 exports.initDB = initDB;
 
+/**
+ * 静态文件代理
+ */
 let fs = require('fs')
 exports.staticFile = function(req,res,pathname){
 	if(pathname=='/'||pathname=='/index.html'){
