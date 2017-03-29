@@ -10,6 +10,7 @@ var assert = require('assert')
 http.createServer(function(req,res){
 	let userId = ''
 	req.cookies = util.parseCookie(req.headers.cookie)
+	// console.log('请求的cookie',req.cookies)
 	if(!req.cookies.userId){
 		userId = Math.random()
 		res.setHeader('Set-cookie',util.serializeCookie('userId',userId))
@@ -31,6 +32,8 @@ http.createServer(function(req,res){
 		//cookie传递过来都为字符串，但数据库中为数字，需转换
 		userId = parseFloat(req.cookies.userId);
 	}
+	// console.log('请求的id',userId)
+	// console.log('url',req.url)
 
 	// var pathname = url.parse(req.url).pathname;
 	var urlParsed = url.parse(req.url,true);
@@ -39,8 +42,8 @@ http.createServer(function(req,res){
 
 	var paths = pathname.split('/') //todoControl与操作方法 
 	var action = paths[2] //add,delete,modify,get
-	res.setHeader('Access-Control-Allow-Origin','*')
-	res.setHeader('Access-Control-Allow-Methods','*')
+	// res.setHeader('Access-Control-Allow-Origin','*')
+	// res.setHeader('Access-Control-Allow-Methods','*')
 	if(paths[1]=='todoControl'){
 
 		switch(action){
@@ -49,6 +52,7 @@ http.createServer(function(req,res){
 			 * 一个成功的例子
 			 * fetch('http://localhost:8082/todoControl/get',{credentials:'include'}).then(function(response){return response.json()}).then(function(body){console.log(body)})
 			 */
+			// console.log('请求fetchData',action)
 				MongoClient.connect(mongodbUrl,function(err,db){
 					var collection = db.collection('todo');
 					collection.findOne({name:userId},(function(err,result){

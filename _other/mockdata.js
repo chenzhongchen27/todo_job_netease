@@ -1,5 +1,4 @@
-module.exports={
-	todos:[{
+var todos = [{
 		uid:Math.random()
 		,descript:'diyidier'
 		,completed:false
@@ -12,6 +11,8 @@ module.exports={
 		,descript:'diyidier'
 		,completed:true
 	}]
-	,editing:''
+module.exports={
+	todos:todos
+	,editing:todos[1].uid
 	,filter:'all'
 }

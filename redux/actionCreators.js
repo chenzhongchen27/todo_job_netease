@@ -1,6 +1,6 @@
 import { CALLFETCH } from './fetchMiddleware.js'
 // var URLHOST = 'http://server.firstfly.cn:8082'
-var URLHOST = 'http://server.firstfly.cn:8082'
+var URLHOST = '';//现在的
 
 var actionCreators = {
 	fetchAllData:function(){

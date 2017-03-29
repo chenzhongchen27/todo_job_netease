@@ -4,18 +4,17 @@
 	<meta charset="UTF-8">
 	<title>regularjs - todo练习页面</title>
 	<link rel="stylesheet" type="text/css" href="./dist/main.css">
-	<link rel="stylesheet" type="text/css" href="./resource/todoMVC.css">
 	<script type="text/javascript" src="resource/regular.js"></script>
 </head>
 <body>
-	<button onclick="javascript:document.cookie='userId=0.8182967680133957'">点击载入0.8182967680133957账号内容,刷新后生效</button>
+	<button onclick="javascript:document.cookie='userId=0.8182967680133957';location.reload()">点击载入0.8182967680133957账号内容,刷新后生效</button>
 	<div id="todoapp" class=""></div>
 	<script type="template/regular" id="todomvc">
 		<h1 class="title">regularjs - todo 练习</h1> 	
 		<input type="text" id="addTodo" name="addTodo" placeholder="新建todo项目" on-enter={this.actions.addTodo($event)}/>
 		<ul class="items">
 			{#list visibleTodos as todo}
-			<li class="item">
+			<li class="item edit">
 				<input type="checkbox" class="toggleItem" on-change={this.actions.changeTodoCompleted(todo.uid,todo.completed)} checked={todo.completed}/>
 				{#if editing==todo.uid}
 					<input class="edittext" type="text" on-enter={this.actions.changeTodo($event,todo.uid,todo.descript)}  autofocus value={todo.descript} />
@@ -23,19 +22,18 @@
 					<span class="showText" on-dblclick={this.actions.startEdit(todo.uid)}>{todo.descript}</span>
 				{/if}
 
-				<button class="deleteButton" on-click={this.actions.deleteTodo(todo.uid)}>删除</button>
+				<button class="deleteButton" on-click={this.actions.deleteTodo(todo.uid)}></button>
 			</li>
 			{/list}
 		</ul>
 		<footer class="control">
+			<span class="itemlength"><strong>{todos.length}</strong> items </span>
 			<ul>
 				<li><a r-class={{active:filter=='all'}} href="javascript:void(0);" on-click={this.actions.changeFilter('all')}>all</a></li>
 				<li><a r-class={{active:filter=='active'}} href="javascript:void(0);" on-click={this.actions.changeFilter('active')}>active</a></li>
 				<li><a r-class={{active:filter=='completed'}} href="javascript:void(0);" on-click={this.actions.changeFilter('completed')}>completed</a></li>
 				<li><label><input type="checkbox" on-change={this.actions.changeAllTodoCompleted(!isAllCompleted)} checked={isAllCompleted} />toggle all</label> </li>
 			</ul>
-			<br />
-			<span class="itemlength"><strong>{todos.length}</strong> items </span>
 			<button class="clearButton" on-click={this.actions.clearCompleted()}>clearm {completedLength} completed</button>
 		</footer>
 	</script>

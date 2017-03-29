@@ -3,6 +3,7 @@ import thunk from 'redux-thunk'
 import actionCreators from './redux/actionCreators' 
 import reducer from './redux/reducer'
 import fetchMiddleware from './redux/fetchMiddleware.js'
+// var mockdata = require('./_other/mockdata.js')
 
 require('./style/index.scss')
 
