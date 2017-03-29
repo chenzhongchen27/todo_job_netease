@@ -39,7 +39,8 @@ http.createServer(function(req,res){
 
 	var paths = pathname.split('/') //todoControl与操作方法 
 	var action = paths[2] //add,delete,modify,get
-	// res.setHeader('Access-Control-Allow-Origin','*')
+	res.setHeader('Access-Control-Allow-Origin','*')
+	res.setHeader('Access-Control-Allow-Methods','*')
 	if(paths[1]=='todoControl'){
 
 		switch(action){
