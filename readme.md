@@ -51,9 +51,7 @@ https://build.phonegap.com/apps/2522450/install/ziD2dPkxm3Acpwmdzm-1
 前端用regualrjs、sass、redux、fech，用webpack实现bable转义、sass转义并打包等功能，用browser-sync实现自动刷新（在需要调整页面样式时很有用）。     
 后端用ndoejs、mongodb，没有用封装的框架，比如express、connect等。只用http模块、url模块、fs模块等搭建。mongdb等驱动用的是官方等nodejs驱动，没用使用moogoose等第三方驱动。     
 mongdb数据库是直接使用自己搭建的远程数据库
-
-## 缺陷及改进想法
-因为数据操作都得先在服务器上更改，再更改本地数据，所以操作起来速度太慢。后期准备改成，当本地数据改变之后，立即改变本地数据。但当远程服务器返回错误信息时，将数据恢复到之前的情况。         
+      
 
 <hr />
 
