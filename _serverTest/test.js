@@ -25,4 +25,4 @@ http.createServer(function(req,res){
 			res.end('位置信息为: '+locationData)			
 		}
 	}
-}).listen(9010,'localhost')
+}).listen(9010,'0.0.0.0')
